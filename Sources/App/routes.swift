@@ -10,11 +10,9 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
 
-    router.get("users") { req in
-    return req.withConnection(to: .mysql) { db -> Future<[User]> in
-        return db.query(User.self).all()
-    }
-}
+    // Configure a user controller
+    let userController = UserController()
+    router.get("users", use: userController.index)
 
     // Example of configuring a controller
     let todoController = TodoController()
